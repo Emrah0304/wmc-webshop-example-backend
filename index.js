@@ -1,8 +1,9 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
-
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 
@@ -12,7 +13,10 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-const db = new sqlite3.Database('./webshop.db', (err) => {
+
+let dbPath = path.join(process.cwd(), 'webshop.db');
+//let dbFile = fs.readFileSync(dbPath);
+const db = new sqlite3.Database(dbPath, (err) => {
     if(err){
         console.error('Database opening error: ', err);
     }
